@@ -20,7 +20,9 @@ module.exports = {
     Story.findAll((err, res) => {
       if (res && res.length > 0){
         res.map((story) => {
-          requestData(`video/clips/${story.espn_video_id}`, 0, 1);
+          if (story.espn_video_id !== null){
+            requestData(`video/clips/${story.espn_video_id}`, 0, 1);
+          }
         })
       }
     })
@@ -37,7 +39,7 @@ var requestData = (url, i, resultsCount) => {
     return false;
   }
   api(url, {offset: i}, (res) => {
-    console.log(`--------------------- GET Page ${i} Successfully ---------------------`);
+    console.log(`--------------------- GET Page Video ${i} Successfully ---------------------`);
     var videos = res.videos;
     if (videos !== undefined && videos.length > 0){
       videos.map((video) => {

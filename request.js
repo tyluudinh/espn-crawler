@@ -17,7 +17,15 @@ module.exports = {
     }).then((res) => {
       callback(res.data);
     }).catch((error) => {
-      console.error(error);
+      if (error.response) {
+        console.log(`=====================>>>>>>>Error<<<<<<<<=======================`);
+        console.log(`==============Code: ${error.response.data.code}=================`);
+
+        console.log(`===========Message: ${error.response.data.message}==============`);
+
+        console.log(`===============Url: ${url}======================================`);
+        console.log(`================================================================`);
+      }
     })
   }
 }

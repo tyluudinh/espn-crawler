@@ -48,7 +48,7 @@ var requestData = (url, i, resultsCount) => {
     return false;
   }
   api(url, {offset: i}, (res) => {
-    console.log(`--------------------- GET Page ${i} Successfully ---------------------`);
+    console.log(`--------------------- GET Page Story ${i} Successfully ---------------------`);
     var headlines = res.headlines;
     if (headlines !== undefined && headlines.length > 0){
       headlines.map((story) => {
