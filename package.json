@@ -1,0 +1,15 @@
+{
+  "name": "espn-crawl",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "tyluu",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.17.0",
+    "cheerio": "^1.0.0-rc.2",
+    "moment": "^2.19.1",
+    "mysql": "^2.15.0",
+    "node-schedule": "^1.2.5",
+    "request": "^2.83.0"
+  }
+}
