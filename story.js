@@ -3,6 +3,8 @@ var {api} = require('./request');
 var cheerio = require('cheerio');
 var Story = require('./models/story');
 var StoryHelper = require('./helper/story');
+var slugify = require('slug');
+
 
 const STORY_TYPE = StoryHelper.TYPE;
 const LEAGES = [
@@ -35,6 +37,36 @@ module.exports = {
         }
       });
     })
+  },
+  updateTag: () => {
+    Story.findAll((err, res) => {
+      if (res && res.length > 0){
+        res.map((story) => {
+          if (story.espn_story_id){
+            api(`sports/soccer/news/${story.espn_story_id}`, {}, (res) => {
+              var headlines = res.headlines;
+              if (headlines.length > 0){
+                var tags = [], headline = headlines[0];
+                headline.categories.map(category => {
+                  if (category.type === 'league'){
+                    tags.push(category.description);
+                  }
+                });
+                if (tags.length > 0){
+                  Story.update(story.id, {tags: tags.join(',')}, (err, res) =>{
+                    if (res){
+                      console.log(`Update Tag success Story id: ${story.id}`);
+                    }
+                  })
+                }
+              }
+            })
+          }
+
+
+        })
+      }
+    });
   }
 }
 
@@ -74,6 +106,17 @@ var setModel = (story) => {
       model.tags = story.keywords.join();
       model.description = story.description;
       model.espn_video_id = StoryHelper.setVideoId(story);
+      model.slug = slugify(story.title, {lowercase: false});
+      var tags = [];
+      story.categories.map(category => {
+        if (category.type === 'league'){
+          tags.push(category.description);
+        }
+      });
+      if (tags.length > 0){
+        model.tags = tags.join(',');
+      }
+
       Story.insert(model, (error, result) => {
         if (error === null){
           console.log(`Inserted 1 record into table story with espn_story_id = ${model.espn_story_id}`);

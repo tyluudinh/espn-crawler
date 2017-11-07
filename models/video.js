@@ -4,6 +4,11 @@ let tableName = 'video';
 
 let Video = {
   tableName: tableName,
+  findAll: (callback) => {
+    BaseModel.query(`SELECT * FROM ${tableName}`, function (err, rows) {
+      return callback(err, rows);
+    })
+  },
   findOne: function(espnId, callback) {
     BaseModel.query(`SELECT * FROM ${tableName} WHERE espn_video_id = ${espnId}`, function (err, rows) {
       return callback(err, rows);

@@ -33,6 +33,8 @@ module.exports = {
 
       content = content.replace('</body></html>', '');
 
+      content = content.replace('&lt;img class=&quot;img-in-content&quot; src=&quot;', '<img class="img-in-content" src="').replace('&quot; /&gt;</photo>', '" /></photo>');
+
       return content;
     }
     return '';
