@@ -5,7 +5,7 @@
   "author": "tyluu",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.17.0",
+    "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.2",
     "moment": "^2.19.1",
     "mysql": "^2.15.0",
